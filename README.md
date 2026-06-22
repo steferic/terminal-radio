@@ -1,8 +1,8 @@
 # terminal-radio
 
-<video src="https://github.com/steferic/terminal-radio/raw/main/assets/terminal-radio-demo.mp4" controls muted width="720"></video>
-
-_▶ [Watch the demo](https://github.com/steferic/terminal-radio/raw/main/assets/terminal-radio-demo.mp4) (35s) — if the player above doesn't load in your browser._
+<p align="center">
+  <img src="assets/terminal-radio-demo.gif" alt="terminal-radio — a braille globe of internet radio in your terminal" width="600">
+</p>
 
 A braille-rendered orthographic globe of internet radio stations you spin between,
 right in your terminal — pick a spot on the planet and listen. It pulls verified,
