@@ -1,5 +1,9 @@
 # terminal-radio
 
+<video src="https://github.com/steferic/terminal-radio/raw/main/assets/terminal-radio-demo.mp4" controls muted width="720"></video>
+
+_▶ [Watch the demo](https://github.com/steferic/terminal-radio/raw/main/assets/terminal-radio-demo.mp4) (35s) — if the player above doesn't load in your browser._
+
 A braille-rendered orthographic globe of internet radio stations you spin between,
 right in your terminal — pick a spot on the planet and listen. It pulls verified,
 geolocated stations from radio-browser.info and renders the globe with Unicode

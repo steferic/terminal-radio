@@ -10,6 +10,7 @@ repository = "https://github.com/steferic/terminal-radio"
 readme = "README.md"
 keywords = ["radio", "tui", "terminal", "globe", "ratatui"]
 categories = ["command-line-utilities", "multimedia::audio"]
+exclude = ["assets/"] # the demo video is for the README, not the published crate
 
 # The installed command is `radio` (the crate is published as `terminal-radio`).
 [[bin]]
