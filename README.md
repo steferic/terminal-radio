@@ -8,8 +8,26 @@ braille.
 > Sibling project: the original browser/e-ink globe prototype this grew out of lives
 > in a separate repo (`world-radio`).
 
+## Install
+
+The installed command is **`radio`**. You need a Rust toolchain ([rustup](https://rustup.rs))
+and, for audio, `mpv` or `ffmpeg` on your PATH.
+
+```sh
+cargo install terminal-radio   # from crates.io
+radio                          # run it
 ```
-cargo run --release        # spin the globe
+
+Or straight from source, no crates.io:
+
+```sh
+cargo install --git https://github.com/steferic/terminal-radio
+```
+
+## Run from a clone
+
+```sh
+cargo run --release         # spin the globe
 cargo run -- --snapshot     # render one frame as text (no TTY needed) — used for tests
 ```
 

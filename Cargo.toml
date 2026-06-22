@@ -2,7 +2,19 @@
 name = "terminal-radio"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.74"
 description = "A braille-rendered globe of internet radio stations, in your terminal"
+authors = ["Stefan Le Noach"]
+license = "MIT"
+repository = "https://github.com/steferic/terminal-radio"
+readme = "README.md"
+keywords = ["radio", "tui", "terminal", "globe", "ratatui"]
+categories = ["command-line-utilities", "multimedia::audio"]
+
+# The installed command is `radio` (the crate is published as `terminal-radio`).
+[[bin]]
+name = "radio"
+path = "src/main.rs"
 
 [dependencies]
 ratatui = "0.29"
