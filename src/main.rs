@@ -1,4 +1,4 @@
-// World Radio — terminal edition.
+// terminal-radio — a braille globe of internet radio stations.
 //
 // A braille / half-block rendered orthographic globe of internet radio stations
 // you spin between — the terminal twin of the e-ink hardware concept. The
@@ -615,7 +615,7 @@ impl App {
         if self.stations.is_empty() {
             frame.render_widget(
                 Paragraph::new(Line::from(Span::styled(
-                    " WORLD RADIO  ·  no stations match filter — z windowed, then f to change",
+                    " TERMINAL RADIO  ·  no stations match filter — z windowed, then f to change",
                     Style::default().fg(Color::DarkGray),
                 ))),
                 area,
@@ -625,7 +625,7 @@ impl App {
         let s = &self.stations[self.selected.min(self.stations.len().saturating_sub(1))];
         let playing = self.player.is_some();
         let line = Line::from(vec![
-            Span::styled(" WORLD RADIO ", Style::default().fg(Color::Black).bg(Color::Cyan).add_modifier(Modifier::BOLD)),
+            Span::styled(" TERMINAL RADIO ", Style::default().fg(Color::Black).bg(Color::Cyan).add_modifier(Modifier::BOLD)),
             Span::raw(format!("  {} · {}·{}  ", s.name, s.city, s.country)),
             Span::styled(
                 if playing { "▶ LIVE" } else { "■ IDLE" },
@@ -709,7 +709,7 @@ impl App {
 
         let total = self.stations.len();
         let cur = if total == 0 { 0 } else { self.selected + 1 };
-        let title = format!(" WORLD RADIO  {cur}/{total} ");
+        let title = format!(" TERMINAL RADIO  {cur}/{total} ");
         let canvas = Canvas::default()
             .block(Block::bordered().title(title))
             .marker(Marker::Braille)
