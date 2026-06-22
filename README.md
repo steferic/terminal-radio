@@ -10,19 +10,33 @@ braille.
 
 ## Install
 
-The installed command is **`radio`**. You need a Rust toolchain ([rustup](https://rustup.rs))
-and, for audio, `mpv` or `ffmpeg` on your PATH.
+The installed command is **`radio`**. For audio you'll also want `mpv` or `ffmpeg`
+on your PATH.
+
+**Prebuilt binary — no Rust needed** (macOS / Linux):
 
 ```sh
-cargo install terminal-radio   # from crates.io
-radio                          # run it
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/steferic/terminal-radio/releases/latest/download/terminal-radio-installer.sh | sh
+radio
 ```
 
-Or straight from source, no crates.io:
+Windows (PowerShell):
+
+```powershell
+powershell -ExecutionPolicy Bypass -c "irm https://github.com/steferic/terminal-radio/releases/latest/download/terminal-radio-installer.ps1 | iex"
+```
+
+**With Rust** (cargo):
 
 ```sh
+cargo install terminal-radio    # from crates.io → installs the `radio` command
+# or straight from source:
 cargo install --git https://github.com/steferic/terminal-radio
 ```
+
+(The prebuilt installers/URLs become live once the first version tag is released — see
+[Releasing](#releasing).)
 
 ## Run from a clone
 
@@ -158,18 +172,20 @@ modules are pre-generated and committed, so the crate builds with no external as
 They rarely need regenerating; if you do, fetch the GeoJSON and emit each line as a
 `&[(f32, f32)]` of `(lon, lat)` points into the corresponding `const` array.
 
-## Toolchain note
+## Releasing
 
-This machine's Homebrew `rustc` is currently broken (it links LLVM against a z3 dylib
-version that isn't installed — `rustc -vV` aborts). Use the **rustup** toolchain
-instead, which is self-contained:
+Prebuilt binaries + installers are produced by [dist](https://opensource.axo.dev/cargo-dist/)
+(config in `dist-workspace.toml`, CI in `.github/workflows/release.yml`). To cut a release,
+tag a version and push the tag:
 
-```bash
-export PATH="$HOME/.cargo/bin:$PATH"   # put rustup's cargo ahead of Homebrew's
-cargo build
+```sh
+git tag v0.1.0
+git push origin v0.1.0
 ```
 
-To fix Homebrew's rust permanently: `brew reinstall rust` (or just rely on rustup).
+GitHub Actions then cross-compiles `radio` for macOS (arm64/x64), Linux (arm64/x64), and
+Windows (x64), and publishes a GitHub Release with the `.tar.xz`/`.zip` artifacts,
+checksums, and the `curl … | sh` / PowerShell installers referenced above.
 
 ## Roadmap
 
