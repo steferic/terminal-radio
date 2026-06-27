@@ -137,28 +137,15 @@ struct Palette {
     label: Color,
 }
 
-fn palette(color: bool) -> Palette {
-    if color {
-        Palette {
-            coast: Color::Cyan,
-            border: Color::Rgb(170, 140, 90),
-            grat: Color::DarkGray,
-            limb: Color::Blue,
-            marker: Color::Yellow,
-            sel: Color::LightRed,
-            label: Color::LightYellow,
-        }
-    } else {
-        // Brightness hierarchy: coast brightest, borders mid, graticule dimmest.
-        Palette {
-            coast: Color::White,
-            border: Color::DarkGray,
-            grat: Color::DarkGray,
-            limb: Color::Gray,
-            marker: Color::White,
-            sel: Color::White,
-            label: Color::White,
-        }
+fn palette() -> Palette {
+    Palette {
+        coast: Color::Cyan,
+        border: Color::Rgb(170, 140, 90),
+        grat: Color::DarkGray,
+        limb: Color::Blue,
+        marker: Color::Yellow,
+        sel: Color::LightRed,
+        label: Color::LightYellow,
     }
 }
 
@@ -175,8 +162,6 @@ struct App {
     cur_lat: f64,
     target_lon: f64,
     target_lat: f64,
-    color: bool,
-    graticule: bool,
     borders: bool,
     zoom: bool,
     globe_scale: f64, // 1.0 = fit panel; larger zooms into the earth
@@ -212,12 +197,10 @@ impl App {
             cur_lat: s.lat,
             target_lon: s.lon,
             target_lat: s.lat,
-            color: true,
-            graticule: false,
             borders: true,
             zoom: false,
             globe_scale: 1.0,
-            radio_fx: false,
+            radio_fx: true,
             status: "Ready — ←/→ tune · x random · [ ] size · z maximize · r radio · L reload.".into(),
             list_state,
             player: None,
@@ -525,8 +508,6 @@ impl App {
             KeyCode::Char('[') | KeyCode::Char('-') | KeyCode::Char('_') => {
                 self.globe_scale = (self.globe_scale / 1.15).max(0.3);
             }
-            KeyCode::Char('c') => self.color = !self.color,
-            KeyCode::Char('g') => self.graticule = !self.graticule,
             KeyCode::Char('b') => self.borders = !self.borders,
             KeyCode::Char('z') => self.zoom = !self.zoom,
             KeyCode::Char('f') => self.open_filter(),
@@ -648,8 +629,6 @@ impl App {
             Line::from(v)
         };
         let (bv, bs) = state(self.borders);
-        let (cv, cs) = state(self.color);
-        let (gv, gs) = state(self.graticule);
         let (zv, zs) = state(self.zoom);
         let (rv, rs) = state(self.radio_fx);
         let lines = vec![
@@ -661,8 +640,6 @@ impl App {
             row("r", vec![Span::raw("radio fx: "), Span::styled(rv, rs)]),
             row("z", vec![Span::raw("maximize: "), Span::styled(zv, zs)]),
             row("b", vec![Span::raw("borders: "), Span::styled(bv, bs)]),
-            row("c", vec![Span::raw("color: "), Span::styled(cv, cs)]),
-            row("g", vec![Span::raw("grid: "), Span::styled(gv, gs)]),
             row("L", vec![Span::raw("reload stations")]),
             row("q", vec![Span::raw("quit")]),
         ];
@@ -670,9 +647,9 @@ impl App {
     }
 
     fn draw_globe(&self, frame: &mut Frame, area: Rect) {
-        let pal = palette(self.color);
+        let pal = palette();
         let center = Center::new(self.cur_lon, self.cur_lat);
-        let want_grat = self.graticule;
+        let want_grat = false;
         let want_borders = self.borders;
 
         // Keep the globe circular for the braille (2x4 dot) grid.

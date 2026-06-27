@@ -60,17 +60,15 @@ cargo run -- --snapshot     # render one frame as text (no TTY needed) — used 
 | **Filter** by continent / country | `f` |
 | **Globe size** (zoom the earth in / out) | `]` / `[` (also `+` / `-`) |
 | Play / stop stream | `p` or `Space` (best-effort; needs `mpv` or `ffmpeg` installed) |
-| **Radio filter** (lo-fi AM-radio sound) | `r` |
+| **Radio filter** (lo-fi AM-radio sound) | `r` (default on) |
 | **Maximize globe** (full screen → more braille detail) | `z` |
 | Toggle country borders | `b` (default on) |
-| Toggle color | `c` (default on) |
-| Toggle graticule | `g` (default off) |
 | Reload / re-verify stations | `L` |
 | Quit | `q` or `Esc` |
 
 These are always visible in-app too: a **Controls panel** sits under the station list
-and doubles as a live status readout (it shows the current `radio fx` / `borders` /
-`color` / `grid` states and updates as you toggle them).
+and doubles as a live status readout (it shows the current `radio fx` / `borders`
+states and updates as you toggle them).
 
 ## Filtering (`f`)
 
@@ -116,12 +114,10 @@ size**, and the globe's resolution = (cells across) × (2 or 4 dots). Two ways t
   gets the most cells. Combine both for a very crisp globe.
 
 **Country borders** (Natural Earth 50m admin-0 land boundaries) draw as a `b`-toggleable
-layer. In mono they use a brightness hierarchy — coastlines bright white, borders dim
-gray, graticule dimmest; in color, coast cyan / borders tan / land green.
+layer, rendered in color: coast cyan / borders tan / land green.
 
 **Dirty-flag redraw:** the screen only repaints when something changes, so the 50m
-detail costs ~zero CPU at idle. `c` toggles color (on by default); `g` toggles the
-lat/long graticule (off by default).
+detail costs ~zero CPU at idle.
 
 ## Only-working stations (verified)
 
